@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>H.I Handicrafts — Moradabad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf7f2;
+      --brass: #b08d57;
+      --deep-brass: #8a6c38;
+      --wood: #5c3d2e;
+      --charcoal: #1e1a16;
+      --smoke: #7a6f64;
+      --border: rgba(176,141,87,0.25);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; background: var(--warm-white); color: var(--charcoal); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(250,247,242,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; letter-spacing: 0.05em;
+      color: var(--wood); text-decoration: none;
+    }
+    .nav-logo span { color: var(--brass); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 0.72rem; font-weight: 400; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--smoke);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--brass); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { content: ' ▾'; font-size: 0.6rem; }
+    .dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: var(--warm-white); border: 1px solid var(--border);
+      min-width: 200px; z-index: 200; padding: 0.5rem 0;
+      box-shadow: 0 12px 40px rgba(92,61,46,0.12);
+    }
+    .nav-dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a {
+      display: block; padding: 0.6rem 1.2rem;
+      font-size: 0.68rem; color: var(--smoke);
+      text-decoration: none; letter-spacing: 0.12em;
+      text-transform: uppercase; transition: all 0.2s;
+    }
+    .dropdown-menu a:hover { color: var(--brass); background: var(--cream); padding-left: 1.6rem; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 1.5px; background: var(--wood); transition: all 0.3s; display: block; }
+    .mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background: var(--warm-white); z-index: 300; flex-direction: column;
+      padding: 5rem 2rem 2rem; gap: 1rem; overflow-y: auto;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-close {
+      position: absolute; top: 1.5rem; right: 2rem;
+      background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--charcoal);
+    }
+    .mobile-menu a {
+      font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--smoke); text-decoration: none; padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu .mobile-cat-label {
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--brass); margin-top: 1rem; margin-bottom: 0.3rem;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; padding: 8rem 5% 4rem; gap: 4rem;
+      background: var(--cream); position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -10%; right: -5%;
+      width: 55%; height: 120%;
+      background: radial-gradient(ellipse at 60% 40%, rgba(176,141,87,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--brass); font-weight: 500;
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
+    }
+    .hero-tag::before { content: ''; width: 2rem; height: 1px; background: var(--brass); }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      font-weight: 300; line-height: 1.05; color: var(--charcoal); margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; color: var(--brass); }
+    .hero-subtitle {
+      font-size: 0.9rem; font-weight: 300; color: var(--smoke);
+      line-height: 1.8; max-width: 38ch; margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.9rem 2.2rem; background: var(--wood); color: var(--cream);
+      font-family: 'Jost', sans-serif; font-size: 0.7rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: background 0.3s, transform 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--brass); transform: translateY(-1px); }
+    .btn-outline {
+      padding: 0.9rem 2.2rem; background: transparent; color: var(--wood);
+      font-family: 'Jost', sans-serif; font-size: 0.7rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      border: 1px solid var(--wood); cursor: pointer; text-decoration: none;
+      transition: all 0.3s; display: inline-block;
+    }
+    .btn-outline:hover { background: var(--wood); color: var(--cream); }
+    .hero-visual {
+      display: grid; grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr; gap: 1rem; height: 520px;
+    }
+    .hero-card {
+      border-radius: 2px; overflow: hidden; position: relative;
+      display: flex; align-items: flex-end; padding: 1.2rem;
+      animation: fadeUp 0.9s ease both;
+    }
+    .hero-card:nth-child(1) { grid-row: span 2; animation-delay: 0.1s; background: linear-gradient(160deg, #c9a96e 0%, #7a5533 100%); }
+    .hero-card:nth-child(2) { animation-delay: 0.25s; background: linear-gradient(160deg, #3d2b1f 0%, #6b4226 100%); }
+    .hero-card:nth-child(3) { animation-delay: 0.4s; background: linear-gradient(160deg, #b08d57 0%, #8a6c38 100%); }
+    .hero-card-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.85); font-weight: 400; }
+    .hero-card-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); font-size: clamp(3rem,6vw,5rem); opacity: 0.25; user-select: none; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* SECTIONS */
+    section { padding: 7rem 5%; }
+    .section-tag {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--brass); font-weight: 500;
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
+    }
+    .section-tag::before { content: ''; width: 2rem; height: 1px; background: var(--brass); }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300; line-height: 1.1; color: var(--charcoal);
+    }
+    .section-title em { font-style: italic; color: var(--brass); }
+
+    /* ABOUT */
+    #about { background: var(--warm-white); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .about-text .section-title { margin-bottom: 1.5rem; }
+    .about-text p { font-size: 0.95rem; font-weight: 300; color: var(--smoke); line-height: 1.9; margin-bottom: 1.2rem; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+    .stat { border-left: 2px solid var(--brass); padding-left: 1rem; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--wood); }
+    .stat-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--smoke); font-weight: 400; }
+    .about-image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .about-img-box {
+      border-radius: 2px; aspect-ratio: 3/4;
+      display: flex; align-items: center; justify-content: center; font-size: 3.5rem; opacity: 0.7;
+    }
+    .about-img-box:nth-child(1) { background: linear-gradient(145deg,#d4b483,#9a6a30); margin-top: 2rem; }
+    .about-img-box:nth-child(2) { background: linear-gradient(145deg,#4a2c1a,#7a5030); }
+    .about-img-box:nth-child(3) { background: linear-gradient(145deg,#b08d57,#7a5c30); grid-column: span 2; aspect-ratio: 16/6; }
+
+    /* EXPLORE COLLECTIONS */
+    #collections { background: var(--cream); }
+    .collections-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1rem; }
+    .collections-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .collection-card {
+      position: relative; overflow: hidden; cursor: pointer;
+      text-decoration: none; display: block;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .collection-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(92,61,46,0.18); }
+    .collection-card-img {
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; position: relative; overflow: hidden;
+    }
+    .collection-card-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(30,26,22,0.6) 0%, transparent 50%);
+    }
+    .collection-card:nth-child(1) .collection-card-img { background: linear-gradient(145deg, #c9a96e, #7a5533); }
+    .collection-card:nth-child(2) .collection-card-img { background: linear-gradient(145deg, #8fa3b1, #3d5060); }
+    .collection-card:nth-child(3) .collection-card-img { background: linear-gradient(145deg, #6aab7a, #2e5c3a); }
+    .collection-card:nth-child(4) .collection-card-img { background: linear-gradient(145deg, #d4a85c, #8a6028); }
+    .collection-card:nth-child(5) .collection-card-img { background: linear-gradient(145deg, #b08d57, #6e4a20); }
+    .collection-card:nth-child(6) .collection-card-img { background: linear-gradient(145deg, #a07060, #5c3020); }
+    .collection-card:nth-child(7) .collection-card-img { background: linear-gradient(145deg, #7a6a50, #3d3020); }
+    .collection-card:nth-child(8) .collection-card-img { background: linear-gradient(145deg, #9a8060, #5c4030); }
+    .collection-card:nth-child(9) .collection-card-img { background: linear-gradient(145deg, #c0a878, #7a6038); }
+    .collection-overlay {
+      padding: 1.4rem; background: var(--warm-white);
+      border: 1px solid var(--border); border-top: none;
+    }
+    .collection-cat { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.4rem; }
+    .collection-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--charcoal); margin-bottom: 0.5rem; }
+    .collection-arrow { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brass); display: flex; align-items: center; gap: 0.5rem; margin-top: 0.8rem; }
+    .collection-arrow::after { content: '→'; transition: transform 0.3s; }
+    .collection-card:hover .collection-arrow::after { transform: translateX(4px); }
+
+    /* CRAFTSMANSHIP */
+    #craftsmanship { background: var(--wood); color: var(--cream); }
+    #craftsmanship .section-tag { color: var(--brass); }
+    #craftsmanship .section-tag::before { background: var(--brass); }
+    #craftsmanship .section-title { color: var(--cream); margin-bottom: 3.5rem; }
+    .craft-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .craft-step { padding: 2rem 1.5rem; border: 1px solid rgba(176,141,87,0.3); position: relative; transition: border-color 0.3s, background 0.3s; }
+    .craft-step:hover { border-color: var(--brass); background: rgba(176,141,87,0.08); }
+    .craft-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: rgba(176,141,87,0.3); line-height: 1; margin-bottom: 1rem; }
+    .craft-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .craft-step h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--cream); margin-bottom: 0.7rem; }
+    .craft-step p { font-size: 0.82rem; color: rgba(245,240,232,0.65); line-height: 1.75; font-weight: 300; }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--warm-white); }
+    .testimonials-header { margin-bottom: 3.5rem; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .testi-card { padding: 2.2rem; border: 1px solid var(--border); background: var(--cream); position: relative; }
+    .testi-quote { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--brass); opacity: 0.35; line-height: 0.5; margin-bottom: 1rem; display: block; }
+    .testi-text { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; font-weight: 300; color: var(--charcoal); line-height: 1.75; margin-bottom: 1.5rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.9rem; }
+    .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--brass), var(--wood)); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--cream); }
+    .testi-name { font-size: 0.8rem; font-weight: 500; color: var(--charcoal); }
+    .testi-loc { font-size: 0.7rem; color: var(--smoke); font-weight: 300; letter-spacing: 0.05em; }
+    .testi-stars { color: var(--brass); font-size: 0.8rem; margin-bottom: 0.3rem; }
+
+    /* CONTACT */
+    #contact { background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .contact-info .section-title { margin-bottom: 1.5rem; }
+    .contact-info p { font-size: 0.9rem; color: var(--smoke); line-height: 1.8; font-weight: 300; margin-bottom: 2.5rem; }
+    .contact-detail { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icon { width: 40px; height: 40px; flex-shrink: 0; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .contact-item-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.2rem; }
+    .contact-item-val { font-size: 0.9rem; color: var(--charcoal); font-weight: 300; }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--smoke); }
+    .form-group input, .form-group textarea, .form-group select {
+      background: var(--warm-white); border: 1px solid var(--border);
+      padding: 0.85rem 1rem; font-family: 'Jost', sans-serif;
+      font-size: 0.88rem; color: var(--charcoal); font-weight: 300;
+      outline: none; transition: border-color 0.3s; width: 100%;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--brass); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    /* FOOTER */
+    footer { background: var(--charcoal); padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--cream); }
+    .footer-logo span { color: var(--brass); }
+    .footer-copy { font-size: 0.72rem; color: var(--smoke); font-weight: 300; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.7rem; color: var(--smoke); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--brass); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+      .hero-visual { height: 280px; }
+      #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .collections-grid { grid-template-columns: 1fr 1fr; }
+      .craft-grid { grid-template-columns: 1fr 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 540px) {
+      .collections-grid { grid-template-columns: 1fr; }
+      .craft-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .about-image-grid { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <a href="#about">About</a>
+  <a href="#collections">Collections</a>
+  <div class="mobile-cat-label">Categories</div>
+  <a href="home-decor.html">Home Decor</a>
+  <a href="kitchenware.html">Kitchen Wear</a>
+  <a href="garden-decor.html">Garden Decor</a>
+  <a href="candle-holder.html">Candle Holder</a>
+  <a href="vases.html">Vases</a>
+  <a href="wall-arts.html">Wall Arts</a>
+  <a href="frames.html">Frames</a>
+  <a href="utility.html">Utility</a>
+  <a href="serveware.html">Serve Ware</a>
+  <a href="#craftsmanship">Craftsmanship</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html"><span>H.I</span> Handicrafts</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li class="nav-dropdown">
+      <a href="#collections">Collections</a>
+      <div class="dropdown-menu">
+        <a href="home-decor.html">Home Decor</a>
+        <a href="kitchenware.html">Kitchen Wear</a>
+        <a href="garden-decor.html">Garden Decor</a>
+        <a href="candle-holder.html">Candle Holder</a>
+        <a href="vases.html">Vases</a>
+        <a href="wall-arts.html">Wall Arts</a>
+        <a href="frames.html">Frames</a>
+        <a href="utility.html">Utility</a>
+        <a href="serveware.html">Serve Ware</a>
+      </div>
+    </li>
+    <li><a href="#craftsmanship">Craftsmanship</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="openMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-tag">Moradabad, Uttar Pradesh · Est. H.I Handicrafts</p>
+    <h1 class="hero-title">Where Metal<br>Meets <em>Wood</em><br>in Every Detail</h1>
+    <p class="hero-subtitle">Handcrafted home décor items born from the artisan heritage of Moradabad — the Brass City of India. Each piece carries a story of tradition, precision, and timeless beauty.</p>
+    <div class="hero-btns">
+      <a href="#collections" class="btn-primary">Explore Collection</a>
+      <a href="#contact" class="btn-outline">Enquire Now</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card"><span class="hero-card-icon">🪔</span><span class="hero-card-label">Metal Art</span></div>
+    <div class="hero-card"><span class="hero-card-icon">🪵</span><span class="hero-card-label">Wood Craft</span></div>
+    <div class="hero-card"><span class="hero-card-icon">✦</span><span class="hero-card-label">Decor Pieces</span></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text">
+    <p class="section-tag">Our Story</p>
+    <h2 class="section-title">Crafted with<br><em>Heritage</em> &amp; Heart</h2>
+    <p>H.I Handicrafts is rooted in the rich artisan culture of Moradabad — a city celebrated globally for its extraordinary metalwork. For generations, skilled craftsmen have poured their mastery into every piece we create.</p>
+    <p>We specialize in handcrafted home décor items that blend the warmth of natural wood with the elegance of metal — creating pieces that don't just decorate a space, but define it.</p>
+    <p>Whether you're furnishing a contemporary home or seeking a meaningful gift, H.I Handicrafts brings you authenticity at its finest.</p>
+    <div class="about-stats">
+      <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Years of Craft</div></div>
+      <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Unique Designs</div></div>
+      <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Countries Exported</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Handmade</div></div>
+    </div>
+  </div>
+  <div class="about-image-grid">
+    <div class="about-img-box">🏺</div>
+    <div class="about-img-box">🪵</div>
+    <div class="about-img-box" style="aspect-ratio:16/6; font-size:2rem;">✦ &nbsp; Moradabad Artisans &nbsp; ✦</div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+  <div class="collections-header">
+    <div>
+      <p class="section-tag">Collections</p>
+      <h2 class="section-title">Explore Our <em>Categories</em></h2>
+    </div>
+    <a href="#contact" class="btn-outline">Request Catalogue</a>
+  </div>
+  <div class="collections-grid">
+    <a href="home-decor.html" class="collection-card">
+      <div class="collection-card-img">🏡</div>
+      <div class="collection-overlay">
+        <p class="collection-cat">Category</p>
+        <h3 class="collection-name">Home Decor</h3>
+        <div class="collection-arrow">View Collection</div>
+      </div>
+    </a>
+    <a href="kitchenware.html" class="collection-card">
+      <div class="collection-card-img">🍽️</div>
+      <div class="collection-overlay">
+        <p class="collection-cat">Category</p>
+        <h3 class="collection-name">Kitchen Wear</h3>
+        <div class="collection-arrow">View Collection</div>
+      </div>
+    </a>
+    <a href="garden-decor.html" class="collection-card">
+      <div class="collection-card-img">🌿</div>
+      <div class="collection-overlay">
+        <p class="collection-cat">Category</p>
+        <h3 class="collection-name">Garden Decor</h3>
+        <div class="collection-arrow">View Collection</div>
+      </div>
+    </a>
+    <a href="candle-holder.html" class="collection-card">
+      <div class="collection-card-img">🕯️</div>
+      <div class="collection-overlay">
+        <p class="collection-cat">Category</p>
+        <h3 class="collection-name">Candle Holder</h3>
+        <div class="collection-arrow">View Collection</div>
+      </div>
+    </a>
+    <a href="vases.html" class="collection-card">
+      <div class="collection-card-img">🏺</div>
+      <div class="collection-overlay">
+        <p class="collection-cat">Category</p>
+        <h3 class="collection-name">Vases</h3>
+        <div class="collection-arrow">View Collection</div>
+      </div>
+    </a>
+    <a href="wall-arts.html" class="collection-card">
+      <div class="collection-card-img">🖼️</div>
+      <div class="collection-overlay">
+        <p class="collection-cat">Category</p>
+        <h3 class="collection-name">Wall Arts</h3>
+        <div class="collection-arrow">View Collection</div>
+      </div>
+    </a>
+    <a href="frames.html" class="collection-card">
+      <div class="collection-card-img">🪟</div>
+      <div class="collection-overlay">
+        <p class="collection-cat">Category</p>
+        <h3 class="collection-name">Frames</h3>
+        <div class="collection-arrow">View Collection</div>
+      </div>
+    </a>
+    <a href="utility.html" class="collection-card">
+      <div class="collection-card-img">🛠️</div>
+      <div class="collection-overlay">
+        <p class="collection-cat">Category</p>
+        <h3 class="collection-name">Utility</h3>
+        <div class="collection-arrow">View Collection</div>
+      </div>
+    </a>
+    <a href="serveware.html" class="collection-card">
+      <div class="collection-card-img">🥂</div>
+      <div class="collection-overlay">
+        <p class="collection-cat">Category</p>
+        <h3 class="collection-name">Serve Ware</h3>
+        <div class="collection-arrow">View Collection</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CRAFTSMANSHIP -->
+<section id="craftsmanship">
+  <p class="section-tag">Our Process</p>
+  <h2 class="section-title">The Art of <em>Making</em></h2>
+  <div class="craft-grid">
+    <div class="craft-step"><div class="craft-num">01</div><div class="craft-icon">🎨</div><h3>Design &amp; Sketch</h3><p>Every piece begins as a hand-drawn sketch. Our designers draw inspiration from Mughal motifs, natural forms, and contemporary aesthetics.</p></div>
+    <div class="craft-step"><div class="craft-num">02</div><div class="craft-icon">🔨</div><h3>Material Selection</h3><p>We source premium brass, iron, and sustainable hardwoods. Each material is tested for quality before it ever meets our craftsmen's hands.</p></div>
+    <div class="craft-step"><div class="craft-num">03</div><div class="craft-icon">⚒️</div><h3>Hand Crafting</h3><p>Skilled artisans shape, beat, carve, and assemble each piece using time-honoured techniques passed down through generations in Moradabad.</p></div>
+    <div class="craft-step"><div class="craft-num">04</div><div class="craft-icon">✨</div><h3>Finish &amp; Quality</h3><p>Each item is polished, treated, and inspected thoroughly. Only pieces that meet our exacting standards leave our workshop.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <p class="section-tag">Client Words</p>
+    <h2 class="section-title">What Our <em>Clients</em> Say</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <span class="testi-quote">"</span>
+      <p class="testi-text">The brass vase I ordered is breathtaking. The detailing is extraordinary — it looks like a museum piece. H.I Handicrafts truly delivers artistry.</p>
+      <div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-stars">★★★★★</div><div class="testi-name">Riya Sharma</div><div class="testi-loc">New Delhi, India</div></div></div>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote">"</span>
+      <p class="testi-text">We import their metal-wood fusion pieces for our boutique in London. The quality and packaging are impeccable. Our customers absolutely love them.</p>
+      <div class="testi-author"><div class="testi-avatar">J</div><div><div class="testi-stars">★★★★★</div><div class="testi-name">James Holloway</div><div class="testi-loc">London, UK</div></div></div>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote">"</span>
+      <p class="testi-text">Ordered custom carved wood panels for our restaurant interior. H.I Handicrafts delivered beyond our expectations — on time and perfectly finished.</p>
+      <div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-stars">★★★★★</div><div class="testi-name">Ahmed Al-Farsi</div><div class="testi-loc">Dubai, UAE</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-info">
+    <p class="section-tag">Get in Touch</p>
+    <h2 class="section-title">Let's Create<br><em>Together</em></h2>
+    <p>Whether you're a retailer, interior designer, or individual buyer — we'd love to hear from you. Reach out for catalogues, custom orders, or wholesale enquiries.</p>
+    <div class="contact-detail">
+      <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-item-label">Address</div><div class="contact-item-val">Moradabad, Uttar Pradesh, India</div></div></div>
+      <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-item-label">Phone</div><div class="contact-item-val">+91 XXXXX XXXXX</div></div></div>
+      <div class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-item-label">Email</div><div class="contact-item-val">info@hihandicrafts.com</div></div></div>
+      <div class="contact-item"><div class="contact-icon">🕐</div><div><div class="contact-item-label">Working Hours</div><div class="contact-item-val">Mon – Sat: 9:00 AM – 6:00 PM IST</div></div></div>
+    </div>
+  </div>
+  <div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"/></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 00000 00000"/></div>
+        <div class="form-group"><label>Enquiry Type</label>
+          <select>
+            <option>Wholesale / Bulk Order</option>
+            <option>Custom Design</option>
+            <option>Retail Purchase</option>
+            <option>Export Enquiry</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your requirements — product type, quantity, design preferences..."></textarea></div>
+      <button class="btn-primary" style="width:100%; padding:1rem; font-size:0.75rem;">Send Enquiry</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>H.I</span> Handicrafts</div>
+  <p class="footer-copy">© 2025 H.I Handicrafts, Moradabad. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#collections">Collections</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); }
+  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+</script>
+</body>
+</html>
